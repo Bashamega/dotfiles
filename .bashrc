@@ -1,3 +1,5 @@
+export PATH="$HOME/.cargo/bin:$PATH"
+
 #My aliases
 alias gs='git status -sb'
 alias gaa='git add --all'
@@ -77,3 +79,22 @@ function sync-dotfiles() {
     git push origin main
     cd -
 }
+# Cursor
+export PATH="$PATH:/mnt/c/Users/me/AppData/Local/Programs/cursor/resources/app/bin"
+
+export GPG_TTY=$(tty)
+
+# pnpm
+export PNPM_HOME="/home/adam/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+. "$HOME/.cargo/env"
+# Fix WSLg Wayland socket
+if [ -d /mnt/wslg/runtime-dir ] && [ -n "$XDG_RUNTIME_DIR" ]; then
+  ln -sf /mnt/wslg/runtime-dir/wayland-* "$XDG_RUNTIME_DIR/"
+fi
+
+export PATH="$HOME/bin:$PATH"
